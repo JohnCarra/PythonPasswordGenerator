@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import ttk
 import pyperclip
 import zxcvbn
+import cryptography.fernet
 
 # Create the GUI window
 root = tk.Tk()
@@ -43,7 +44,6 @@ strength_label = tk.Label(frame, text="", font=font, bg='#F0F0F0')
 strength_label.pack(pady=10)
 
 
-# Create a function to generate a random password
 def generate_password():
     # Get the password length from the spinbox
     password_length = int(length_spinbox.get())
@@ -80,12 +80,22 @@ def generate_password():
     else:
         strength = "Very Strong"
 
+    # Encrypt the password using the cryptography module
+    # Generate a key using the Fernet module
+    key = cryptography.fernet.Fernet.generate_key()
+
+    # Create a Fernet cipher using the generated key
+    cipher = cryptography.fernet.Fernet(key)
+
+    # Encrypt the password using the cipher
+    encrypted_password = cipher.encrypt(password.encode())
+
+    # Copy the encrypted password to the clipboard
+    pyperclip.copy(encrypted_password.decode())
+
     # Update the label text with the generated password and strength score
     label.config(text=password)
     strength_label.config(text=strength)
-
-    # Copy the password to the clipboard
-    pyperclip.copy(password)
 
 
 # Create a button to generate the password
