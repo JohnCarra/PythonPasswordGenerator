@@ -17,7 +17,6 @@ pip install -package name-
 
 ## Installation
 Clone the repository or download the source code.  
-Run the program by executing the main.py file.
 
 ## Usage
 To use the password generator:
