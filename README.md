@@ -2,7 +2,7 @@
 This is a simple password generator program built using Python and Tkinter GUI toolkit. The program generates a random password that meets the requirements of Google Gmail.
 
 ## Requirements
-Python 3.x
+Python 3.x &
 Tkinter module
 
 ## Installation
