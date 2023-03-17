@@ -41,7 +41,7 @@ This program is licensed under the MIT License. See the LICENSE file for details
 ![2](https://user-images.githubusercontent.com/82400181/226028814-6f7719c4-64ec-4274-89a3-b81ecade162b.jpg)
 
 ![3](https://user-images.githubusercontent.com/82400181/226028826-1bec19fa-b5ba-459b-89c5-c011d4a4e20c.jpg)  
-
+### Password Deletion from GUI  
 ![passworddelete](https://user-images.githubusercontent.com/82400181/226064026-fc40021e-9430-494a-93ef-17f8dfa40092.jpg)
 
 
