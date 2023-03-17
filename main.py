@@ -15,13 +15,13 @@ root.title("Password Generator")
 font = ("Arial", 14)
 
 # Set the window size and center it on the screen
-window_width = 600
-window_height = 350
+WINDOW_WIDTH = 600
+WINDOW_HEIGHT = 350
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
-x = int((screen_width/2) - (window_width/2))
-y = int((screen_height/2) - (window_height/2))
-root.geometry(f"{window_width}x{window_height}+{x}+{y}")
+x = int((screen_width/2) - (WINDOW_WIDTH/2))
+y = int((screen_height/2) - (WINDOW_HEIGHT/2))
+root.geometry(f"{WINDOW_WIDTH}x{WINDOW_HEIGHT}+{x}+{y}")
 
 # Set the background color
 root.configure(bg='#F0F0F0')
@@ -46,6 +46,19 @@ strength_label.pack(pady=10)
 
 
 def generate_password():
+    """
+    This function generates a random password of a specified length, using a combination of lowercase and uppercase
+    letters, digits, and symbols. The password must meet the requirements of Google Gmail. It then calculates the
+    strength of the password using the zxcvbn module, and encrypts the password using the cryptography module.
+    The encrypted password is copied to the clipboard, and the generated password and strength score are displayed
+    in a Tkinter label widget.
+
+    Parameters:
+    None
+
+    Returns:
+    None
+    """
     # Get the password length from the spinbox
     password_length = int(length_spinbox.get())
 
@@ -110,6 +123,18 @@ button.pack()
 
 
 def clear_password():
+    """
+    This function clears the password string from memory for security purposes.
+    It retrieves the password from a Tkinter label widget, replaces the label text
+    with a message indicating that the password has been deleted, and overwrites
+    the password string with random data to prevent it from being recovered.
+
+    Parameters:
+    None
+
+    Returns:
+    None
+    """
     password = label.cget("text")
     label.config(text="Password deleted after copy for security purposes.")
     # Overwrite the password string with random data
