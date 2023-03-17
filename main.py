@@ -111,7 +111,7 @@ button.pack()
 
 def clear_password():
     password = label.cget("text")
-    label.config(text="Password deleted for security purposes.")
+    label.config(text="Password deleted after copy for security purposes.")
     # Overwrite the password string with random data
     length = len(password.encode())
     buf = ctypes.create_string_buffer(length)
