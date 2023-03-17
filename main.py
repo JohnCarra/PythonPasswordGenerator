@@ -2,6 +2,7 @@ import random
 import string
 import tkinter as tk
 from tkinter import ttk
+import pyperclip
 
 # Create the GUI window
 root = tk.Tk()
@@ -12,7 +13,7 @@ font = ("Arial", 14)
 
 # Set the window size and center it on the screen
 window_width = 600
-window_height = 300
+window_height = 350
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 x = int((screen_width/2) - (window_width/2))
@@ -65,6 +66,9 @@ def generate_password():
     # Update the label text with the generated password
     label.config(text=password)
 
+    # Copy the password to the clipboard
+    pyperclip.copy(password)
+
 
 # Create a button to generate the password
 style = ttk.Style()
@@ -72,6 +76,11 @@ style.configure('Custom.TButton', font=font)
 button = ttk.Button(frame, text="Generate Password",
                     style='Custom.TButton', command=generate_password)
 button.pack()
+
+# Create a button to copy the password to the clipboard
+copy_button = ttk.Button(frame, text="Copy to Clipboard",
+                         style='Custom.TButton', command=lambda: pyperclip.copy(label.cget("text")))
+copy_button.pack()
 
 # Start the GUI event loop
 root.mainloop()
