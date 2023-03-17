@@ -1,8 +1,9 @@
-import random
+import secrets
 import string
 import tkinter as tk
 from tkinter import ttk
 import pyperclip
+import zxcvbn
 
 # Create the GUI window
 root = tk.Tk()
@@ -38,9 +39,11 @@ length_label.pack()
 length_spinbox = tk.Spinbox(frame, from_=8, to=48, font=font)
 length_spinbox.pack()
 
+strength_label = tk.Label(frame, text="", font=font, bg='#F0F0F0')
+strength_label.pack(pady=10)
+
+
 # Create a function to generate a random password
-
-
 def generate_password():
     # Get the password length from the spinbox
     password_length = int(length_spinbox.get())
@@ -53,18 +56,33 @@ def generate_password():
 
     # Ensure that the password meets the requirements of Google Gmail
     while True:
-        password = ''.join(random.choice(lowercase) for i in range(2))
-        password += ''.join(random.choice(uppercase) for i in range(2))
-        password += ''.join(random.choice(digits) for i in range(2))
-        password += ''.join(random.choice(symbols) for i in range(2))
-        password += ''.join(random.choice(lowercase + uppercase + digits + symbols)
+        password = ''.join(secrets.choice(lowercase) for i in range(2))
+        password += ''.join(secrets.choice(uppercase) for i in range(2))
+        password += ''.join(secrets.choice(digits) for i in range(2))
+        password += ''.join(secrets.choice(symbols) for i in range(2))
+        password += ''.join(secrets.choice(lowercase + uppercase + digits + symbols)
                             for i in range(password_length - 8))
         if (any(c.islower() for c in password) and any(c.isupper() for c in password) and
                 any(c.isdigit() for c in password) and any(c in symbols for c in password)):
             break
 
-    # Update the label text with the generated password
+    # Calculate the password strength score
+    result = zxcvbn.zxcvbn(password)
+    score = result["score"]
+
+    # Determine the password strength based on the score
+    if score == 0:
+        strength = "Weak"
+    elif score == 1 or score == 2:
+        strength = "Average"
+    elif score == 3:
+        strength = "Strong"
+    else:
+        strength = "Very Strong"
+
+    # Update the label text with the generated password and strength score
     label.config(text=password)
+    strength_label.config(text=strength)
 
     # Copy the password to the clipboard
     pyperclip.copy(password)
