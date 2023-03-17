@@ -7,7 +7,7 @@ Tkinter module
 
 ## Installation
 Clone the repository or download the source code.  
-Run the program by executing the password_generator.py file.
+Run the program by executing the main.py file.
 
 ## Usage
 Run the program.  
