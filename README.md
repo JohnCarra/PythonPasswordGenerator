@@ -17,3 +17,8 @@ The generated password will be displayed on the label widget.
 
 ## License
 This program is licensed under the MIT License. See the LICENSE file for details.
+
+## Display
+![passwordgen](https://user-images.githubusercontent.com/82400181/225817467-f4c2ecd1-73cd-4db4-880d-abae7bd9bf1e.jpg)
+
+![passwordgen2](https://user-images.githubusercontent.com/82400181/225817650-2f2e0dc9-ca4a-4325-879c-8f2814540d87.jpg)
