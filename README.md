@@ -1,5 +1,5 @@
 # Password Generator
-This is a simple password generator GUI application written in Python using the tkinter library. It generates a strong and secure password according to Google Gmail's requirements, encrypts it using the cryptography module, and copies it to the clipboard.
+This is a password generator application written in Python using tkinter that generates strong and secure passwords according to Google Gmail's requirements. It uses modules such as secrets, zxcvbn, and cryptography to ensure password complexity, strength, and encryption. However, it is important to note that no password is 100% secure and it is recommended to use unique and strong passwords for each account and change them regularly.
 
 ## Requirements
 This application requires the following Python packages and Python 3.X:
