@@ -5,6 +5,7 @@ from tkinter import ttk
 import pyperclip
 import zxcvbn
 import cryptography.fernet
+import ctypes
 
 # Create the GUI window
 root = tk.Tk()
@@ -105,9 +106,22 @@ button = ttk.Button(frame, text="Generate Password",
                     style='Custom.TButton', command=generate_password)
 button.pack()
 
+# Function to delete password from label after copying to clipboard
+
+
+def clear_password():
+    password = label.cget("text")
+    label.config(text="Password deleted for security purposes.")
+    # Overwrite the password string with random data
+    length = len(password.encode())
+    buf = ctypes.create_string_buffer(length)
+    ctypes.memset(buf, 0, length)
+    del password
+
+
 # Create a button to copy the password to the clipboard
 copy_button = ttk.Button(frame, text="Copy to Clipboard",
-                         style='Custom.TButton', command=lambda: pyperclip.copy(label.cget("text")))
+                         style='Custom.TButton', command=lambda: [pyperclip.copy(label.cget("text")), clear_password()])
 copy_button.pack()
 
 # Start the GUI event loop
