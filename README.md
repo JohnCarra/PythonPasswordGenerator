@@ -1,20 +1,33 @@
 # Password Generator
-This is a simple password generator program built using Python and Tkinter GUI toolkit. The program generates a random password that meets the requirements of Google Gmail.
+This is a simple password generator GUI application written in Python using the tkinter library. It generates a strong and secure password according to Google Gmail's requirements, encrypts it using the cryptography module, and copies it to the clipboard.
 
 ## Requirements
-Python 3.x &
-Tkinter module
+This application requires the following Python packages and Python 3.X:
+
+secrets
+string
+tkinter
+pyperclip
+zxcvbn
+cryptography
+
+To install these packages, run the following command for each package:
+
+pip install -package name-
 
 ## Installation
 Clone the repository or download the source code.  
 Run the program by executing the main.py file.
 
 ## Usage
-Run the program.  
-Select the desired password length using the spinbox widget.  
-Click the "Generate Password" button to generate a random password that meets the requirements of Google Gmail.  
-The generated password will be displayed on the label widget.  
+To use the password generator:
 
+Run the program by executing the script in a Python environment.
+Select the desired password length using the spinbox widget.
+Click the "Generate Password" button to generate a random password that meets the requirements of Google Gmail.
+The generated password will be displayed on the label widget.
+Optionally, click the "Copy to Clipboard" button to copy the password to the clipboard for easy use.
+That's it! You can now use the generated password for your online accounts.
 ## License
 This program is licensed under the MIT License. See the LICENSE file for details.
 
