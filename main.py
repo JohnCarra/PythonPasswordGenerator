@@ -6,6 +6,7 @@ import pyperclip
 import zxcvbn
 import cryptography.fernet
 import ctypes
+import clearboard_file
 
 # Create the GUI window
 root = tk.Tk()
@@ -148,6 +149,15 @@ def clear_password():
 copy_button = ttk.Button(frame, text="Copy to Clipboard",
                          style='Custom.TButton', command=lambda: [pyperclip.copy(label.cget("text")), clear_password()])
 copy_button.pack()
+
+
+def clear_clipboard():
+    clearboard_file.clear_clipboard()
+
+
+clear_button = ttk.Button(frame, text="Clear Clipboard",
+                          style='Custom.TButton', command=clear_clipboard)
+clear_button.pack()
 
 # Start the GUI event loop
 root.mainloop()
