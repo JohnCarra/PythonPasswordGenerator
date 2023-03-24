@@ -1,15 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
 import pyperclip
-import os
-import platform
 import password_utils
+from clipboard import clear_clipboard
 
 
 def set_window_size_and_center(root):
     # Set the window size and center it on the screen
     WINDOW_WIDTH = 600
-    WINDOW_HEIGHT = 350
+    WINDOW_HEIGHT = 400
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
     x = int((screen_width/2) - (WINDOW_WIDTH/2))
@@ -19,81 +18,77 @@ def set_window_size_and_center(root):
 
 def configure_window(root):
     # Set the background color
-    root.configure(bg='#F0F0F0')
+    root.configure(bg='#D4D4D4')
 
 
 def create_frame(root):
     # Create a frame to hold the label, spinbox, and button
-    frame = tk.Frame(root, bg='#F0F0F0')
-    frame.pack(pady=20)
+    frame = tk.Frame(root, bg='#D4D4D4')
+    frame.pack(pady=20, padx=20)
     return frame
 
 
 def create_widgets(frame):
+    # Create the label, spinbox, and button widgets
     font = ("Arial", 14)
     label, length_spinbox, strength_label = create_label_spinbox_strength_label(
         frame, font)
+    button_frame = create_button_frame(frame)
     create_generate_password_button(
-        frame, font, label, length_spinbox, strength_label)
-    create_copy_and_clear_buttons(frame, font, label)
+        button_frame, font, label, length_spinbox, strength_label)
+    create_copy_and_clear_buttons(button_frame, font, label)
 
 
 def create_label_spinbox_strength_label(frame, font):
     # Create a label widget
-    label = tk.Label(
-        frame, text="Click the button to generate a password", font=font, bg='#F0F0F0')
+    label = tk.Label(frame, text="Click the button to generate a password",
+                     font=font, bg='#D4D4D4', wraplength=500)
     label.pack(pady=10)
 
     # Create a spinbox widget to select the password length
     length_label = tk.Label(
-        frame, text="Password Length", font=font, bg='#F0F0F0')
+        frame, text="Password Length", font=font, bg='#D4D4D4')
     length_label.pack()
-    length_spinbox = tk.Spinbox(frame, from_=8, to=48, font=font)
+    length_spinbox = tk.Spinbox(frame, from_=8, to=48, font=font, width=4)
     length_spinbox.pack()
 
-    strength_label = tk.Label(frame, text="", font=font, bg='#F0F0F0')
+    strength_label = tk.Label(frame, text="", font=font, bg='#D4D4D4')
     strength_label.pack(pady=10)
 
     return label, length_spinbox, strength_label
+
+
+def create_button_frame(frame):
+    # Create a frame to hold the buttons
+    button_frame = tk.Frame(frame, bg='#D4D4D4')
+    button_frame.pack(pady=10)
+    return button_frame
 
 
 def create_generate_password_button(frame, font, label, length_spinbox, strength_label):
     # Create a button to generate the password
     style = ttk.Style()
     style.configure('Custom.TButton', font=font)
-    button = ttk.Button(frame, text="Generate Password",
-                        style='Custom.TButton', command=lambda: generate_password(label, length_spinbox, strength_label))
-    button.pack()
+    button = ttk.Button(frame, text="Generate Password", style='Custom.TButton',
+                        command=lambda: generate_password(label, length_spinbox, strength_label))
+    button.pack(side='left', padx=10)
 
 
 def create_copy_and_clear_buttons(frame, font, label):
     # Create a button to copy the password to the clipboard
-    copy_button = ttk.Button(frame, text="Copy to Clipboard",
-                             style='Custom.TButton', command=lambda: [pyperclip.copy(label.cget("text")), clear_password(label)])
-    copy_button.pack()
+    copy_button = ttk.Button(frame, text="Copy to Clipboard", style='Custom.TButton', command=lambda: [
+                             pyperclip.copy(label.cget("text")), clear_password(label)])
+    copy_button.pack(side='left', padx=10)
 
     # Create a button to clear the clipboard
-    clear_button = ttk.Button(frame, text="Clear Clipboard",
-                              style='Custom.TButton', command=clear_clipboard)
-    clear_button.pack()
+    clear_button = ttk.Button(
+        frame, text="Clear Clipboard", style='Custom.TButton', command=clear_clipboard)
+    clear_button.pack(side='left', padx=10)
 
 
 def generate_password(label, length_spinbox, strength_label):
-    """
-    This function generates a random password of a specified length, using a combination of lowercase and uppercase
-    letters, digits, and symbols. The password must meet the requirements of Google Gmail. It then calculates the
-    strength of the password using the zxcvbn module, and encrypts the password using the cryptography module.
-    The encrypted password is copied to the clipboard, and the generated password and strength score are displayed
-    in a Tkinter label widget.
+    # This function generates a password, updates the label widget, and copies the password to the clipboard
 
-    Parameters:
-    label - Tkinter label widget to display the generated password
-    length_spinbox - Tkinter spinbox widget to get the password length
-    strength_label - Tkinter label widget to display the password strength
-
-    Returns:
-    None
-    """
     password_length = int(length_spinbox.get())
     password = password_utils.create_valid_password(password_length)
 
@@ -110,33 +105,11 @@ def update_labels(label, strength_label, password, strength):
 
 
 def clear_password(label):
-    """
-    This function clears the password string from memory for security purposes.
-    It retrieves the password from a Tkinter label widget, replaces the label text
-    with a message indicating that the password has been deleted, and overwrites
-    the password string with random data to prevent it from being recovered.
+    # This function clears the password from the label widget
 
-    Parameters:
-    label - Tkinter label widget to retrieve and update the password
-
-    Returns:
-    None
-    """
     password = label.cget("text")
     password_utils.overwrite_password_with_random_data(password)
     label.config(text="Password deleted after copy for security purposes.")
-
-
-def clear_clipboard():
-    if platform.system() == "Windows":
-        command = 'echo off | clip'
-        os.system(command)
-    elif platform.system() == "Darwin":
-        command = 'echo -n "" | pbcopy'
-        os.system(command)
-    else:
-        command = 'echo -n "" | xclip -selection clipboard'
-        os.system(command)
 
 
 def main():
