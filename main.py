@@ -1,13 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
-import string
-import secrets
-import zxcvbn
-import cryptography.fernet
 import pyperclip
-import ctypes
 import os
 import platform
+import password_utils
 
 
 def set_window_size_and_center(root):
@@ -99,59 +95,13 @@ def generate_password(label, length_spinbox, strength_label):
     None
     """
     password_length = int(length_spinbox.get())
-    password = create_valid_password(password_length)
+    password = password_utils.create_valid_password(password_length)
 
-    score, strength = get_password_strength(password)
-    encrypted_password = encrypt_password(password)
+    score, strength = password_utils.get_password_strength(password)
+    encrypted_password = password_utils.encrypt_password(password)
 
     pyperclip.copy(encrypted_password.decode())
     update_labels(label, strength_label, password, strength)
-
-
-def create_valid_password(password_length):
-    lowercase = string.ascii_lowercase
-    uppercase = string.ascii_uppercase
-    digits = string.digits
-    symbols = string.punctuation.replace('"', '').replace("'", "")
-
-    while True:
-        password = (
-            ''.join(secrets.choice(lowercase) for _ in range(2))
-            + ''.join(secrets.choice(uppercase) for _ in range(2))
-            + ''.join(secrets.choice(digits) for _ in range(2))
-            + ''.join(secrets.choice(symbols) for _ in range(2))
-            + ''.join(secrets.choice(lowercase + uppercase + digits + symbols)
-                      for _ in range(password_length - 8))
-        )
-        if (any(c.islower() for c in password) and any(c.isupper() for c in password)
-                and any(c.isdigit() for c in password) and any(c in symbols for c in password)):
-            break
-
-    return password
-
-
-def get_password_strength(password):
-    result = zxcvbn.zxcvbn(password)
-    score = result["score"]
-
-    if score == 0:
-        strength = "Weak"
-    elif score == 1 or score == 2:
-        strength = "Average"
-    elif score == 3:
-        strength = "Strong"
-    else:
-        strength = "Very Strong"
-
-    return score, strength
-
-
-def encrypt_password(password):
-    key = cryptography.fernet.Fernet.generate_key()
-    cipher = cryptography.fernet.Fernet(key)
-    encrypted_password = cipher.encrypt(password.encode())
-
-    return encrypted_password
 
 
 def update_labels(label, strength_label, password, strength):
@@ -173,15 +123,8 @@ def clear_password(label):
     None
     """
     password = label.cget("text")
-    overwrite_password_with_random_data(password)
+    password_utils.overwrite_password_with_random_data(password)
     label.config(text="Password deleted after copy for security purposes.")
-
-
-def overwrite_password_with_random_data(password):
-    length = len(password.encode())
-    buf = ctypes.create_string_buffer(length)
-    ctypes.memset(buf, 0, length)
-    del password
 
 
 def clear_clipboard():
