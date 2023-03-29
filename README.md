@@ -31,17 +31,14 @@ That's it! You can now use the generated password for your online accounts.
 This program is licensed under the MIT License. See the LICENSE file for details.
 
 ## Display
-![passwordgen](https://user-images.githubusercontent.com/82400181/225818795-c2ecc097-17fd-4aea-a890-2e3a83acb5f0.jpg)  
-![passwordgen2](https://user-images.githubusercontent.com/82400181/225818800-dd343c00-1223-4acf-81ac-fa10e1f121bf.jpg)
+
+![pass](https://user-images.githubusercontent.com/82400181/228396844-1f772655-fee9-4096-9f65-4cf05cf6d457.jpg)
 
 ### Password Scores
-![1](https://user-images.githubusercontent.com/82400181/226028791-52e4ef58-091e-463f-8d9c-377f18e52b15.jpg)
 
+ ![Screenshot 2023-03-28 173649](https://user-images.githubusercontent.com/82400181/228396938-d57943a4-8685-4d09-b6fa-309f6b6cb152.jpg)
 
-![2](https://user-images.githubusercontent.com/82400181/226028814-6f7719c4-64ec-4274-89a3-b81ecade162b.jpg)
+### Password Deletion
 
-![3](https://user-images.githubusercontent.com/82400181/226028826-1bec19fa-b5ba-459b-89c5-c011d4a4e20c.jpg)  
-### Password Deletion from GUI  
-![passworddelete](https://user-images.githubusercontent.com/82400181/226064026-fc40021e-9430-494a-93ef-17f8dfa40092.jpg)
-
+![Screenshot 2023-03-28 173731](https://user-images.githubusercontent.com/82400181/228397004-4ab0c815-af0a-4172-85ab-95ea5d94ca11.jpg)
 
